@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block header_background %}    
+            <header class="masthead" style="background-image:url({%static 'theme/home-bg.jpg'%})">
+            {% endblock header_background%}
+
+{% block page_title %}حذف پست{% endblock page_title %}
+
+{% block content %}
+
+<div class="container mb-5" align="center">
+    <div class="col-md-12">
+        <form action="{% url 'delete_post_form' slug %}" method="post">
+            {% csrf_token %}
+            <p>آیا از حذف پست{{slug}} مطمئن هستید؟</p>
+            <input type="submit" value="حذف پست">
+            <a href="{% url 'dashboard'%}">بازگشت به پنل کاربری</a>
+        </form>
+
+    </div>
+</div>
+
+{% endblock content %}

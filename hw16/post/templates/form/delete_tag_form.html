@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block header_background %}    
+            <header class="masthead" style="background-image:url({%static 'theme/tag.jpg'%})">
+            {% endblock header_background%}
+
+{% block page_title %}حذف تگ{% endblock page_title %}
+
+{% block content %}
+
+<div class="container mb-5">
+    <div class="col-md-12" align="center">
+        <form action="{% url 'delete_tag_form' slug %}" method="post">
+            {% csrf_token %}
+            <p>آیا از حذف تگ{{slug}} مطمئن هستید؟</p>
+            <input type="submit" value="حذف تگ">
+            <a href="{% url 'tags'%}">بازگشت به لیست تگ ها</a>
+        </form>
+
+    </div>
+</div>
+
+{% endblock content %}

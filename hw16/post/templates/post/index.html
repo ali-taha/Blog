@@ -1,0 +1,55 @@
+{% extends "main.html"%}
+
+{% load static %}
+
+{% block page_title %} صفحه اصلی {% endblock page_title %} Home 
+
+{% block header_background %}    
+            <header class="masthead" style="background-image:url({%static 'theme/home-bg.jpg'%})">
+            {% endblock header_background%}
+
+ {% block content %}
+
+<div class="container px-4 px-lg-5">
+  <div class="row gx-4 gx-lg-5 justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-7">
+
+{% for post in object_list %}
+
+      <!-- Post preview-->
+      <div class="post-preview">
+        <a href="{% url 'post_detail' post.slug %}">
+          <h2 class="post-title">
+            {{post.title}}
+          </h2>
+          <h3 class="post-subtitle">
+           {{ post.short_description}}
+          </h3>
+        </a>
+        <p class="post-meta">
+          Publish Time:{{post.created_at}}
+        </p>
+      </div>
+      <!-- Divider-->
+      {% if user == post.writer %}
+      <a href="{% url 'post_detail' post.slug %}"> ادامه مطلب</a>|
+      <a href="{% url 'edit_post_form' post.slug %}">ویرایش پست</a>|
+      <a href="{% url 'delete_post_form' post.slug %}">حذف پست</a>
+      {% else %}
+      <a href="{% url 'post_detail' post.slug %}"> ادامه مطلب</a>|
+      {% endif %}
+           <hr class="my-4" />
+{% endfor %}
+
+      <!-- Pager-->
+      <div class="d-flex justify-content-end mb-4">
+        <a class="btn btn-primary text-uppercase" href="{%url 'posts'%}">تمامی پست ها ←</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %} 
+
+
+

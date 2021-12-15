@@ -1,0 +1,28 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block page_title %}تماس با ما{% endblock page_title%}
+
+{% block header_background %}    
+            <header class="masthead" style="background-image:url({%static 'theme/contact-bg.jpg'%})">
+            {% endblock header_background%}
+
+
+{% block content %} 
+
+{% if message_sent %}
+
+<p>done</p>
+
+{{ form.cleaned_data.to }} {% else %}
+
+<div class="container mb-5" align="center">
+  <div class="col-md-12">
+    <form action="{% url 'contact_us_form'%}" method="post">
+      {% csrf_token %} {{form.as_p}}
+      <input type="submit" value="ارسال" />
+    </form>
+  </div>
+</div>
+
+{% endif %} {% endblock content %}

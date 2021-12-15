@@ -1,0 +1,49 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block page_title %}پنل کاربری {{user}}{% endblock page_title %}
+
+{% block header_background %}    
+            <header class="masthead" style="background-image:url({%static 'theme/dashboard.jpg'%})">
+            {% endblock header_background%}
+
+{% block content %}
+
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <a class="btn btn-primary mb-5" href="{% url 'add_post_form' %}">برای ایجاد پست کلیک کنید</a>
+<a class="btn btn-primary mb-5" href="{% url 'reset_password_form' %}">تغییر رمز عبور</a>
+<h2>پست های شما</h2>
+
+        <hr class="my-4" />
+{% for post in user_posts %}
+    
+  <!-- Post preview-->
+  <div class="post-preview">
+    <a href="{% url 'post_detail' post.slug %}">
+      <h2 class="post-title">
+        {{post.title}}
+      </h2>
+      <h3 class="post-subtitle">
+       {{ post.short_description}}
+      </h3>
+    </a>
+    <p class="post-meta">
+      زمان انتشار:{{post.created_at }}
+    </p>
+  </div>
+
+  <!-- Divider-->
+  <a href="{% url 'post_detail' post.slug %}">نمایش جزئیات پست</a>|
+  <a href="{% url 'edit_post_form' post.slug %}">ویرایش پست</a>|
+  <a href="{% url 'delete_post_form' post.slug %}">حذف پست</a>
+  <hr class="my-4" />
+{% empty %}
+<h4>پستی برای نمایش وجود ندارد</h4>
+{% endfor %}
+
+
+
+{% endblock content %}

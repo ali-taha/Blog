@@ -1,0 +1,58 @@
+{% extends "post.html" %}
+
+{% block title %} {{post.title}} {% endblock title %} 
+
+{% block header_title %}{{ post.title}}{% endblock header_title %}
+
+{% block short_description %} {{ post.short_description}}{% endblock short_description %}
+
+{% block publish_time %} {{post.created_at }} {% endblock publish_time %} 
+
+{% block category %} {% for item  in categories %}
+
+<a href="{% url 'category_post' item.title    %}">{{item.title}}</a> ,  
+
+{% endfor %} {% endblock category %}
+
+{% block tag %} {% for item  in tags %}
+
+<a href="{% url 'tag_post' item.title    %}">{{item.title}}</a> ,  
+
+{% endfor %} {% endblock tag %}
+
+
+
+{% block content %}
+{% if post.image %}
+<img src="{{post.image.url}}" alt="">
+
+{% endif %}
+{{post.description}}
+{% endblock content %}
+
+{% comment %} comments {% endcomment %}
+
+{% block comments %}
+{% for item in comments %}
+<p>کاربر :{{item.user }}, عنوان  :{{item.title }} </p>
+<p> متن :{{item.description }}</p><br> :::
+{% empty%}
+  <p> هنوز کامنتی ثبت نشده است</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+<form action="{% url 'post_detail' post.slug %}" method="post">
+  {% csrf_token%}
+ {{form.as_p}}
+ <input type="submit" value="افزودن کامنت"> 
+
+</form>
+
+{% else %}
+<p>***برای ثبت نظر باید وارد شوید***</p>
+
+{% endif %}
+
+{% endblock comments %} 
+
+

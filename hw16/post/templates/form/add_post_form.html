@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block header_background %}    
+            <header class="masthead" style="background-image:url({%static 'theme/home-bg.jpg'%})">
+            {% endblock header_background%}
+
+
+{% block page_title %}ایجاد پست{% endblock page_title %}
+
+{% block content %}
+
+<div class="container mb-5" align="center">
+    <div class="col-md-12">
+        <form action="{% url 'add_post_form' %}" method="post" enctype='multipart/form-data'>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="اضافه کن">
+        </form>
+
+    </div>
+</div>
+
+{% endblock content %}

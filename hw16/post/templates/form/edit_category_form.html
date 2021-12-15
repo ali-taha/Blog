@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block header_background %}    
+            <header class="masthead" style="background-image:url({%static 'theme/category.jpg'%})">
+            {% endblock header_background%}
+
+            
+{% block page_title %}وییرایش دسته بندی{% endblock page_title %}
+{% block content %}
+
+<div class="container mb-5" align="center">
+    <div class="col-md-12">
+        <form action="{% url 'edit_category_form' slug %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="ثبت ویرایش">
+        </form>
+
+    </div>
+</div>
+
+{% endblock content %}
